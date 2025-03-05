@@ -12,6 +12,7 @@ import { useAuthStore } from '@/store/authStore';
 import { usePusherStore } from '@/store/pusherStore';
 import { pusherClient } from '@/utils/pusher';
 import { GetDashboardIdResponse } from '@planit-types';
+import CoCursorProvider from 'cocursor';
 import { useRouter } from 'next/navigation';
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -92,7 +93,10 @@ export default function DashboardPage({
   }
 
   return (
-    <>
+    <CoCursorProvider
+      apiKey={process.env.NEXT_PUBLIC_COCURSOR_API_KEY!}
+      myName={userInfo?.nickname}
+    >
       <div className="flex h-screen overflow-hidden">
         <Sidemenu />
         <div className="flex flex-1 flex-col overflow-hidden">
@@ -126,6 +130,6 @@ export default function DashboardPage({
         isOpen={isCreateColumnModalOpen}
         onClose={closeCreateColumnModal}
       />
-    </>
+    </CoCursorProvider>
   );
 }
